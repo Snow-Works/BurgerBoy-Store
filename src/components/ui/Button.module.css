@@ -1,0 +1,63 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    border: 2px solid transparent;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-label);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition:
+        transform var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out),
+        background-color var(--dur-base) var(--ease-out),
+        color var(--dur-base) var(--ease-out);
+}
+
+/* Sizes */
+.sm {
+    padding: 0.65rem 1.25rem;
+    min-height: 44px;
+    font-size: 0.65rem;
+}
+
+.md {
+    padding: 1rem 2rem;
+    min-height: 48px;
+    font-size: 0.8rem;
+}
+
+/* Variants */
+.primary {
+    background: var(--color-accent);
+    color: var(--color-bg);
+}
+
+.outline {
+    border-color: var(--color-cream);
+    color: var(--color-cream);
+}
+
+/* Hover effects only on devices that can really hover (not touch screens) */
+@media (hover: hover) {
+    .button:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lift);
+    }
+
+    .primary:hover {
+        background: #ffc61a;
+    }
+
+    .outline:hover {
+        background: var(--color-cream);
+        color: var(--color-bg);
+    }
+}
+
+.button:active {
+    transform: translateY(0) scale(0.97);
+}
