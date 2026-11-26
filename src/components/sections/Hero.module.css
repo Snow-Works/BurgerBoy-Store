@@ -228,3 +228,18 @@
         bottom: clamp(16px, 4.2vw, 76px);
     }
 }
+
+
+
+
+/*  Step 4A additions  */
+
+/* Each headline word needs its own box so it can slide up on its own */
+.word { display: inline-block; }
+
+/* The inner burger layer that floats and tilts; it fills the same box as the image */
+.alive {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
