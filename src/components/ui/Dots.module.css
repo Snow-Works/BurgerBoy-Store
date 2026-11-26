@@ -1,0 +1,37 @@
+.dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The button is a roomy tap area; the visible dot (.mark) is smaller. */
+.dot {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+}
+@media (pointer: coarse) {
+  .dot { width: 40px; height: 40px; } /* bigger targets for fingers */
+}
+
+.mark {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgb(251 250 218 / 0.35);
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.active .mark {
+  background: var(--slide-accent, var(--color-accent));
+  transform: scale(1.35);
+}
+
+@media (hover: hover) {
+  .dot:hover .mark { background: rgb(251 250 218 / 0.7); }
+  .active:hover .mark { background: var(--slide-accent, var(--color-accent)); }
+}

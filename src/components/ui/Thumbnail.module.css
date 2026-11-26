@@ -1,0 +1,31 @@
+.thumb {
+    position: relative;
+    flex: none;
+    width: clamp(56px, 6.94vw, 120px);
+    /* Figma: 120px at 1728px */
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 3px solid transparent;
+    border-radius: var(--radius-md);
+    opacity: 0.7;
+    transition:
+        opacity var(--dur-base) var(--ease-out),
+        transform var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out);
+}
+
+.image {
+    object-fit: cover;
+}
+
+.active {
+    border-color: var(--slide-accent, var(--color-accent));
+    opacity: 1;
+}
+
+@media (hover: hover) {
+    .thumb:hover {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+}
