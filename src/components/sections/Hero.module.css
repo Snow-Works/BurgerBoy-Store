@@ -1,0 +1,230 @@
+.hero {
+    /* Headline size: fluid on small screens, Figma's 144px on a 1728px desktop */
+    --hero-title: clamp(2.5rem, 12vw, 6.5rem);
+    /* Default accent; React overwrites it with each burger's own color */
+    --slide-accent: var(--color-accent);
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    padding-top: var(--nav-height);
+    padding-bottom: var(--space-7);
+}
+
+/*  Mobile first: one centered column */
+.grid {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-5);
+    text-align: center;
+}
+
+/* On mobile .copy stops being a box, so its children join .grid directly.
+   That lets us reorder them with `order`: text, burger, buttons, thumbnails, dots. */
+.copy {
+    display: contents;
+}
+
+.text {
+    order: 1;
+    display: grid;
+    justify-items: center;
+}
+
+.stage {
+    order: 2;
+}
+
+.actions {
+    order: 3;
+}
+
+.thumbs {
+    order: 4;
+}
+
+.dotsWrap {
+    order: 5;
+}
+
+/*  Headline stack  */
+.heading {
+    display: grid;
+    justify-items: center;
+    gap: 0.1em;
+}
+
+.eyebrow {
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: calc(var(--hero-title) * 0.31);
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--color-cream);
+}
+
+.title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--hero-title);
+    line-height: 1.05;
+    color: var(--color-cream);
+}
+
+.tagline {
+    margin-top: var(--space-3);
+    font-family: var(--font-label);
+    font-weight: 400;
+    font-size: clamp(0.625rem, calc(var(--hero-title) * 0.11), 1rem);
+    letter-spacing: 0.2em;
+    line-height: 1.8;
+    color: var(--color-cream);
+    text-wrap: balance;
+}
+
+/*  Buttons and thumbnails  */
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+}
+
+.thumbs {
+    display: none;
+    /* mobile design has no thumbnails: dots (and swipe, later) do the job */
+    gap: clamp(10px, 1.16vw, 20px);
+}
+
+/* Burger stage */
+.stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+    width: 100%;
+}
+
+.burgerWrap {
+    position: relative;
+    /* required: the fill image positions itself against this */
+    width: min(78vw, 460px);
+    aspect-ratio: 1.08;
+    /* Figma burger is about 715 x 660 */
+}
+
+/* Soft colored glow behind the burger, tinted by the active slide */
+.glow {
+    position: absolute;
+    inset: 8% 4% 12%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side,
+            color-mix(in srgb, var(--slide-accent) 38%, transparent),
+            transparent);
+    opacity: 0.7;
+}
+
+/* Elliptical ground shadow under the burger */
+.shadow {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    bottom: 3%;
+    height: 9%;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(0 0 0 / 0.55), transparent);
+}
+
+.burgerImage {
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-card);
+}
+
+.image {
+    object-fit: contain;
+}
+
+.info {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-1);
+}
+
+.caption {
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: clamp(0.6rem, 0.9vw, 0.9rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-cream-muted);
+}
+
+.price {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.4vw, 2.5rem);
+    line-height: 1.1;
+    color: var(--slide-accent);
+}
+
+/* ===== 640px and up: larger stacked layout + thumbnails appear ===== */
+@media (min-width: 640px) {
+    .burgerWrap {
+        width: min(70vw, 520px);
+    }
+
+    .thumbs {
+        display: flex;
+    }
+}
+
+/* ===== 1024px and up: Figma's two-column desktop layout ===== */
+@media (min-width: 1024px) {
+    .hero {
+        --hero-title: var(--fs-headline);
+        padding-bottom: clamp(72px, 8vw, 130px);
+        /* room for the dots */
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 1.27fr 1fr;
+        /* text column is wider than the burger column */
+        column-gap: var(--space-6);
+        align-items: center;
+    }
+
+    /* Back to a real box: a centered vertical stack, like the Figma */
+    .copy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .actions {
+        margin-top: var(--space-6);
+    }
+
+    .thumbs {
+        margin-top: clamp(2rem, 5vw, 5.5rem);
+    }
+
+    .burgerWrap {
+        width: 100%;
+        max-width: 715px;
+    }
+
+    /* Dots sit at the bottom center of the whole hero */
+    .dotsWrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: clamp(16px, 4.2vw, 76px);
+    }
+}
