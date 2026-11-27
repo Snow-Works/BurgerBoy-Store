@@ -233,7 +233,7 @@
 
 
 
-/*  Step 4A additions  */
+/*   additions  */
 
 /* Each headline word needs its own box so it can slide up on its own */
 .word { display: inline-block; }
@@ -243,4 +243,59 @@
   position: absolute;
   inset: 0;
   will-change: transform;
+}
+
+
+
+
+
+
+/*  additions */
+
+/* The swappable slide fills the same box as the image and can be dragged */
+.slide {
+  position: absolute;
+  inset: 0;
+  cursor: grab;
+}
+.slide:active { cursor: grabbing; }
+.slide img {
+  -webkit-user-drag: none; /* stops the browser's native image "ghost" drag */
+  user-select: none;
+}
+
+/* Reserve space for the caption + price so the layout never jumps during a swap */
+.info { min-height: clamp(3.5rem, 5.4vw, 4.75rem); }
+.infoInner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-1);
+}
+
+/* Dots + pause button sit side by side */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.pause {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  color: var(--color-cream-muted);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+@media (pointer: coarse) {
+  .pause { width: 40px; height: 40px; }
+}
+@media (hover: hover) {
+  .pause:hover {
+    color: var(--color-cream);
+    background: rgb(251 250 218 / 0.12);
+  }
 }
