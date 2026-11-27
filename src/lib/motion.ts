@@ -1,4 +1,5 @@
 import type { Variants } from "motion/react";
+import { exit } from "process";
 
 // A smooth "fast start, gentle stop" curve used across the site.
 export const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -63,3 +64,45 @@ export const staggerChildren = (stagger: number = 0.08, delay: number = 0): Vari
     hidden: {},
     show: { transition: { staggerChildren: stagger, delayChildren: delay } },
 });
+
+
+
+// swapping between slides 
+// custom is the direction: 1 = going to the next slide, -1 = going back.
+export const burgerSwap: Variants = {
+    enter: (direction: number) => ({ opacity: 0, scale: 0.7, rotate: direction * 70 }),
+    center: {
+        opacity: 1,
+        scale: 1,
+        rotate: 0,
+        transition: {
+            type: "spring" as const,
+            stiffness: 160,
+            damping: 14,
+            opacity: { duration: 0.25 }, // a spring could overshoot opacity, so fade plainly
+        },
+    },
+
+    exit: (direction: number) => ({
+        opacity: 0,
+        scale: 0.7,
+        rotate: direction * -70,
+        transition: { duration: 0.28, ease: EASE_OUT },
+    }),
+};
+
+
+// caption and price: slide up and fade.
+export const textSwap: Variants = {
+    enter: { opacity: 0, y: 14 },
+    center: { opacity: 1, y: 0, transition: { duration: 0.35, ease: EASE_OUT }},
+    exit: { opacity: 0, y: -14, transition: { duration: 0.2 } },
+};
+
+
+// Reduced motion: a plain crossfade.
+export const fadeSwap: Variants = {
+  enter: { opacity: 0 },
+  center: { opacity: 1, transition: { duration: 0.3 } },
+  exit: { opacity: 0, transition: { duration: 0.2 } },
+};
