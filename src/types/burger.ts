@@ -1,4 +1,4 @@
-// An interface describes the "shape" of an object: which fields it has
+=// An interface describes the "shape" of an object: which fields it has
 // and what type each field is. TypeScript warns us if we get it wrong.
 export interface Burger {
   id: string;
