@@ -1,0 +1,12 @@
+.heading {
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: clamp(1.5rem, 2.9vw, 3.125rem);
+    /* Figma: about 50px at 1728px */
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--color-cream);
+}
+
+
