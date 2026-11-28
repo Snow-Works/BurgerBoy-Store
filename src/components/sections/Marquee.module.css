@@ -1,0 +1,62 @@
+.marquee {
+  --marquee-duration: 40s; /* bigger = slower */
+
+  overflow: hidden;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  padding-block: clamp(0.75rem, 1.6vw, 1.5rem);
+}
+
+.track {
+  display: flex;
+  width: max-content; /* as wide as its two groups together */
+  animation: marquee-slide var(--marquee-duration) linear infinite;
+}
+
+.group {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  flex: none;
+  align-items: center;
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2.6vw, 2.5rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The round bullet after every phrase, with equal space on both sides */
+.separator {
+  width: 0.45em;
+  height: 0.45em;
+  margin-inline: clamp(1rem, 2.6vw, 2.75rem);
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* A transform-only animation. -50% is exactly one group, so the loop has no visible jump. */
+@keyframes marquee-slide {
+  to { transform: translateX(-50%); }
+}
+
+/* Pause (not slow down) on hover: changing the speed mid-way would make it jump. */
+@media (hover: hover) {
+  .marquee:hover .track { animation-play-state: paused; }
+}
+
+/* Reduced motion: no movement. Show one centered, wrapping copy instead. */
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    width: auto;
+    justify-content: center;
+    animation: none;
+  }
+  .group { flex-wrap: wrap; justify-content: center; }
+  .group:nth-child(2) { display: none; } /* the duplicate is only needed for the loop */
+}
