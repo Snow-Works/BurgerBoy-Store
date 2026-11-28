@@ -1,0 +1,90 @@
+/* --card-w is set by the Menu section for each breakpoint */
+.item {
+    flex: none;
+    width: var(--card-w, 200px);
+    scroll-snap-align: start;
+    /* the mobile carousel snaps cards to the left edge */
+}
+
+.card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    /* Figma: 200 x 250 */
+    overflow: hidden;
+    border-radius: var(--radius-card);
+    background: var(--color-card-fill);
+    /* white at 20% over the green */
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow var(--dur-base) var(--ease-out);
+}
+
+/* The darkening gradient that keeps the label readable over any photo */
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--color-card-gradient);
+    pointer-events: none;
+}
+
+.card:focus-visible {
+    border-radius: var(--radius-card);
+}
+
+.media {
+    position: absolute;
+    inset: 0;
+}
+
+.image {
+    object-fit: cover;
+    object-position: center 35%;
+    transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    /* above the gradient */
+    padding: 0 0.75rem 1rem;
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: clamp(0.625rem, 0.66vw, 0.75rem);
+    letter-spacing: 0.14em;
+    line-height: 1.5;
+    text-align: center;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: var(--color-cream);
+}
+
+/* Price badge (our addition, e.g. on the Launch Offer card) */
+.badge {
+    position: absolute;
+    top: 0.65rem;
+    right: 0.65rem;
+    z-index: 2;
+    padding: 0.4em 0.85em;
+    border-radius: var(--radius-pill);
+    background: var(--color-accent);
+    color: var(--color-bg);
+    font-family: var(--font-label);
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+}
+
+/* Hover effects: only for real mice, and not for reduced motion */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .card:hover {
+        box-shadow: var(--shadow-lift);
+    }
+
+    .card:hover .image {
+        transform: scale(1.08);
+    }
+}
