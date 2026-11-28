@@ -35,7 +35,7 @@ export const burgers: Burger[] = [
     name: "Smoky BBQ",
     caption: "Smoky and Stacked",
     price: 5500,
-    image: "/images/burgers/burger-4.webp",
+    image: "/images/burgers/burgerr-4.webp",
     thumbnail: "/images/burgers/thumb-4.png",
     accent: "#7BC043",
   },
