@@ -1,0 +1,11 @@
+.item {
+    position: absolute;
+    aspect-ratio: 1;
+    opacity: 0.1;
+    /* Figma: 10% */
+    will-change: transform;
+}
+
+.image {
+    object-fit: contain;
+}
