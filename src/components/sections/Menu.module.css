@@ -1,0 +1,90 @@
+.menu {
+    position: relative;
+    overflow: hidden;
+    /* decorations may poke out of the section */
+    padding-block: clamp(5rem, 9vw, 9.5rem) clamp(4rem, 8vw, 8rem);
+}
+
+/* Background layer (filled in Step 5C). Hidden on phones. */
+.decor {
+    position: absolute;
+    inset: 0;
+    z-index: var(--z-decor);
+    display: none;
+    pointer-events: none;
+    /* never blocks clicks on the cards */
+}
+
+.content {
+    position: relative;
+    z-index: var(--z-content);
+    /* above the decorations */
+    display: grid;
+    justify-items: center;
+    gap: clamp(2rem, 4.5vw, 4.5rem);
+}
+
+/*  Mobile: a swipeable scroll-snap carousel  */
+.list {
+    --gap: 16px;
+    --card-w: clamp(150px, 42vw, 200px);
+
+    display: flex;
+    gap: var(--gap);
+    justify-self: stretch;
+    margin-inline: calc(var(--gutter) * -1);
+    /* let the cards run to the screen edges */
+    padding: var(--space-4) var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+}
+
+.list::-webkit-scrollbar {
+    display: none;
+}
+
+.dots {
+    display: block;
+}
+
+/*  768px and up: a centered wrapping grid (3 per row)  */
+@media (min-width: 768px) {
+    .decor {
+        display: block;
+    }
+
+    .list {
+        --gap: clamp(20px, 1.74vw, 30px);
+        /* Figma: 30px at 1728px */
+        /* This variable holds a calc() with a %: it resolves against the list when a card uses it. */
+        --card-w: calc((100% - 2 * var(--gap)) / 3);
+
+        justify-self: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* the last, shorter row stays centered */
+        gap: clamp(28px, 3.5vw, 60px) var(--gap);
+        /* row gap, column gap */
+        width: 100%;
+        margin-inline: 0;
+        padding: 0;
+        overflow: visible;
+        scroll-snap-type: none;
+    }
+
+    .dots {
+        display: none;
+    }
+}
+
+/*  1024px and up: Figma's 4 x 2 grid  */
+@media (min-width: 1024px) {
+    .list {
+        --card-w: calc((100% - 3 * var(--gap)) / 4);
+        max-width: clamp(890px, 51.5vw, 1180px);
+        /* Figma: 890px wide at 1728px */
+    }
+}
